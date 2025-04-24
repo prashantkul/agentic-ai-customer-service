@@ -1,0 +1,36 @@
+export GOOGLE_CLOUD_PROJECT=privacy-ml-lab1
+export GOOGLE_CLOUD_LOCATION=us-central1
+export AGENT_PATH="./customer_service"
+export SERVICE_NAME="customer-service-agent"
+export APP_NAME="customer-service-agent-app"
+export GOOGLE_GENAI_USE_VERTEXAI=True
+export APP_URL=https://customer-service-agent-190206934161.us-central1.run.app
+
+(google-adk) pskulkarni@pskulkarni-macbookpro ~/Documents/source-code/customer-service $ curl -X GET $APP_URL/list-apps
+["customer-service-agent-app"](google-adk)
+
+curl -X POST -H "Authorization: Bearer $TOKEN" \
+    $APP_URL/run_sse \
+    -H "Content-Type: application/json" \
+    -d '{
+    "app_name": "customer-service-agent-app",
+    "user_id": "user_123",
+    "session_id": "44eb81c8-fc69-4d30-b4b9-159b42d28a38",
+    "new_message": {
+        "role": "user",
+        "parts": [{
+        "text": "Hello"
+        }]
+    },
+    "streaming": false
+    }'
+
+
+   curl -X POST \
+    $APP_URL/apps/customer-service-agent-app/users/user_123/sessions/44eb81c8-fc69-4d30-b4b9-159b42d28a38 \
+    -H "Content-Type: application/json" \
+    -d '{"state": {"preferred_language": "English", "visit_count": 1}}'
+
+
+
+    adk deploy cloud_run --project=$GOOGLE_CLOUD_PROJECT --region=$GOOGLE_CLOUD_LOCATION --service_name=$SERVICE_NAME --app_name=$APP_NAME --with_ui $AGENT_PATH
