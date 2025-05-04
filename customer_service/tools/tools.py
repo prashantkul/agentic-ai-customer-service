@@ -94,37 +94,70 @@ def sync_ask_for_approval(discount_type: str, value: float, reason: str) -> str:
 def update_salesforce_crm(customer_id: str, details: dict) -> dict:
     """
     Updates the Salesforce CRM with customer details or order information.
+    If the details contain items, creates an order in the database.
 
     Args:
         customer_id (str): The ID of the customer.
         details (dict): A dictionary of details to update in Salesforce (e.g., order summary, appointment details).
 
     Returns:
-        dict: A dictionary with the status and message.
+        dict: A dictionary with the status and message, plus order details if an order was created.
 
     Example (if order placed): # doctest: +SKIP
         >>> update_salesforce_crm(customer_id='123', details={
-            'order_id': 'ORD-9876',
-            'order_date': '2024-07-25',
-            'order_total': 185.74,
             'items': [{'product_id': 'RUN-S05', 'quantity': 1}, {'product_id': 'RUN-A01', 'quantity': 1}],
-            'discount_applied': '10% loyalty',
             'status': 'Processing'
             })
-        {'status': 'success', 'message': 'Salesforce record updated.'}
+        {'status': 'success', 'message': 'Order created and Salesforce record updated.', 'order_id': 'ORD-9ABCDE12', 'order_date': '2024-05-02', 'order_total': 155.75}
     """
     logger.info(
         "Updating Salesforce CRM for customer ID %s with details: %s",
         customer_id,
         details,
     )
-    # MOCK API RESPONSE - Replace with actual Salesforce API interaction
+    
+    # Check if this is an order submission (contains items)
+    if "items" in details:
+        try:
+            # Import create_order from database operations - using relative import
+            from ..database.operations import create_order
+            
+            # Create the order in the database
+            logger.info("Creating order for customer ID: %s", customer_id)
+            order_result = create_order(customer_id)
+            
+            # If order was created successfully, return order details
+            if order_result and order_result.get("status") == "success":
+                logger.info(f"Order created successfully: {order_result}")
+                return {
+                    "status": "success",
+                    "message": "Order created and Salesforce record updated.",
+                    "order_id": order_result.get("order_id"),
+                    "order_date": order_result.get("order_date"),
+                    "order_total": order_result.get("order_total"),
+                    "items": order_result.get("items", []),
+                    "status": "Processing"
+                }
+            else:
+                # If order creation failed, return error
+                logger.error(f"Failed to create order: {order_result}")
+                return {
+                    "status": "error", 
+                    "message": f"Failed to create order: {order_result.get('message', 'Unknown error')}"
+                }
+        except Exception as e:
+            # Log any exceptions during order creation
+            logger.error(f"Error creating order: {e}")
+            # Fall back to basic response
+            return {"status": "error", "message": f"Error creating order: {str(e)}"}
+    
+    # For non-order updates or if order creation failed
     return {"status": "success", "message": "Salesforce record updated."}
 
 
 def access_cart_information(customer_id: str) -> dict:
     """
-    Retrieves the current contents of the customer's shopping cart.
+    Retrieves the current contents of the customer's shopping cart from the database.
 
     Args:
         customer_id (str): The ID of the customer.
@@ -137,28 +170,12 @@ def access_cart_information(customer_id: str) -> dict:
         {'cart': [{'product_id': 'RUN-S05', 'name': 'CloudRunner Running Shoes', 'quantity': 1, 'price': 139.99}, {'product_id': 'RUN-A01', 'name': 'Running Socks (3-pack)', 'quantity': 1, 'price': 15.76}], 'subtotal': 155.75}
     """
     logger.info("Accessing cart information for customer ID: %s", customer_id)
-
-    # MOCK API RESPONSE - Replace with actual API call to cart service/database
-    # Ensure the key is 'cart' containing a list of items for compatibility with Streamlit app
-    mock_cart = {
-        "cart": [
-            {
-                "product_id": "RUN-S05",
-                "name": "CloudRunner Running Shoes",
-                "quantity": 1,
-                "price": 139.99,
-            },
-            {
-                "product_id": "RUN-A01",
-                "name": "Running Socks (3-pack)",
-                "quantity": 1,
-                "price": 15.76,
-            },
-        ],
-        "subtotal": 155.75,  # Example subtotal
-    }
-    # In a real scenario, you would fetch this data based on customer_id
-    return mock_cart
+    
+    # Get cart information from the database - using relative import
+    from ..database.operations import access_cart_information as db_access_cart_information
+    cart_data = db_access_cart_information(customer_id)
+    logger.info(f"Retrieved cart data from database: {cart_data}")
+    return cart_data
 
 
 def modify_cart(
@@ -177,20 +194,15 @@ def modify_cart(
         >>> modify_cart(customer_id='123', items_to_add=[{'product_id': 'BKB-007', 'quantity': 1}], items_to_remove=[{'product_id': 'TNR-001'}])
         {'status': 'success', 'message': 'Cart updated successfully.', 'items_added': True, 'items_removed': True}
     """
-
     logger.info("Modifying cart for customer ID: %s", customer_id)
     logger.info("Adding items: %s", items_to_add)
     logger.info("Removing items: %s", items_to_remove)
-    # MOCK API RESPONSE - Replace with actual API call to cart service/database
-    # This function should interact with the persistent cart storage
-    items_added_flag = bool(items_to_add)
-    items_removed_flag = bool(items_to_remove)
-    return {
-        "status": "success",
-        "message": "Cart updated successfully.",  # Or provide more details
-        "items_added": items_added_flag,
-        "items_removed": items_removed_flag,
-    }
+    
+    # Modify the cart in the database - using relative import
+    from ..database.operations import modify_cart as db_modify_cart
+    result = db_modify_cart(customer_id, items_to_add, items_to_remove)
+    logger.info(f"Cart modification result from database: {result}")
+    return result
 
 
 def get_product_recommendations(sport_or_activity: str, customer_id: str) -> dict:
@@ -296,13 +308,17 @@ def get_product_recommendations(sport_or_activity: str, customer_id: str) -> dic
             }
         )
 
-    # Simple filtering if recommendations are already in the mock cart (for demo purposes)
-    # In a real scenario, this logic might be part of the recommendation engine
+    # Simple filtering if recommendations are already in the cart
+    # Get current cart from database to avoid recommending items already in cart
     try:
+        # Get current cart data using the function in this module
+        # We use the function in this module to ensure we use the same import paths
         current_cart_data = access_cart_information(customer_id)
         current_cart_ids = {
             item["product_id"] for item in current_cart_data.get("cart", [])
         }
+            
+        # Filter out products that are already in the cart
         recommendations["recommendations"] = [
             rec
             for rec in recommendations["recommendations"]
@@ -334,16 +350,39 @@ def check_product_availability(product_id: str, store_id: str) -> dict:
         product_id,
         store_id,
     )
-    # MOCK API RESPONSE - Replace with actual inventory system call
-    # Simulate different availability based on product ID
-    if product_id == "NON-EXISTENT":
-        return {"available": False, "quantity": 0, "store": store_id}
-    else:
+    
+    # Use the database operations to get inventory status - using relative import
+    from ..database.operations import get_inventory_status
+    
+    try:
+        # Get inventory data from database
+        inventory_data = get_inventory_status(product_id)
+        
+        # Format response based on store_id and inventory data
+        response = {
+            "available": inventory_data.get("available", False),
+            "quantity": inventory_data.get("quantity", 0),
+            "store": store_id if store_id else inventory_data.get("location", "Main Warehouse")
+        }
+        
+        # Add additional information if available
+        if "last_restock" in inventory_data:
+            response["last_restock"] = inventory_data["last_restock"]
+            
+        if "next_shipment" in inventory_data and not inventory_data.get("available", False):
+            response["next_shipment"] = inventory_data["next_shipment"]
+            
+        return response
+        
+    except Exception as e:
+        logger.error(f"Error checking product availability: {e}")
+        # Return a default response if database access fails
         return {
-            "available": True,
-            "quantity": 15,
-            "store": store_id,
-        }  # Assume most items are available
+            "available": False,
+            "quantity": 0,
+            "store": store_id if store_id else "Unknown",
+            "error": f"Could not retrieve inventory data: {str(e)}"
+        }
 
 
 def schedule_service(

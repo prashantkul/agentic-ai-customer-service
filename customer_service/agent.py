@@ -10,9 +10,9 @@
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
-# limitations under the License.§
+# limitations under the License.
 
-"""Agent module for the customer service agent."""
+"""Agent module for the customer service agent with database integration."""
 
 import logging
 import warnings
@@ -24,20 +24,6 @@ from .shared_libraries.callbacks import (
     before_agent,
     before_tool,
 )
-from .tools.tools import (
-    send_call_companion_link,
-    approve_discount,
-    sync_ask_for_approval,
-    update_salesforce_crm,
-    access_cart_information,
-    modify_cart,
-    get_product_recommendations,
-    check_product_availability,
-    schedule_service, 
-    get_available_service_times, 
-    send_training_tips,  
-    generate_qr_code,
-)
 
 warnings.filterwarnings("ignore", category=UserWarning, module=".*pydantic.*")
 
@@ -46,6 +32,66 @@ configs = Config()
 # configure logging __name__
 logger = logging.getLogger(__name__)
 
+
+# Try to import database-backed tools first, but fall back to mock tools if needed
+try:
+    # Import database-backed tools
+    from .database.db_tools import (
+        send_call_companion_link,
+        approve_discount,
+        sync_ask_for_approval,
+        update_salesforce_crm,
+        access_cart_information,
+        modify_cart,
+        get_product_recommendations,
+        check_product_availability,
+        schedule_service,
+        get_available_service_times,
+        send_training_tips,
+        generate_qr_code,
+    )
+
+    # Initialize the database (if not already initialized)
+    try:
+        from .database.init_db import init_db, ensure_tables_exist
+
+        # Only ensure tables exist without clearing data
+        ensure_tables_exist()
+        logger.info("Database tables initialized successfully (without clearing data)")
+        using_database = True
+    except Exception as e:
+        logger.warning(f"Failed to initialize database: {e}")
+        using_database = False
+
+except ImportError:
+    # Fall back to mock tools
+    logger.warning("Database tools not available, using mock tools")
+    from .tools.tools import (
+        send_call_companion_link,
+        approve_discount,
+        sync_ask_for_approval,
+        update_salesforce_crm,
+        access_cart_information,
+        modify_cart,
+        get_product_recommendations,
+        check_product_availability,
+        schedule_service,
+        get_available_service_times,
+        send_training_tips,
+        generate_qr_code,
+    )
+
+    using_database = False
+
+warnings.filterwarnings("ignore", category=UserWarning, module=".*pydantic.*")
+
+configs = Config()
+
+# configure logging __name__
+logger = logging.getLogger(__name__)
+
+# Log whether we're using database or mock tools
+logger.info(f"Using database-backed tools: {using_database}")
 
 root_agent = Agent(
     model=configs.agent_settings.model,

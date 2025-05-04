@@ -9,8 +9,8 @@ import streamlit as st
 logger = logging.getLogger(__name__)
 
 def display_cart():
-    """Display the shopping cart in the sidebar."""
-    st.subheader("🛒 Your Cart")
+    """Display the shopping cart."""
+    st.markdown("##### 🛒 Your Cart")
     
     # Show if order has been submitted
     if 'order_submitted' in st.session_state and st.session_state.order_submitted:
@@ -18,7 +18,7 @@ def display_cart():
         return
         
     if not st.session_state.cart:
-        st.info("Your cart is empty.")
+        st.markdown("<small>Cart is empty</small>", unsafe_allow_html=True)
         return
         
     try:
@@ -134,8 +134,13 @@ def display_cart_total(cart_df, display_df):
                     logger.error(f"Error in second fallback calculation: {e}")
 
 
-def display_order_confirmation():
-    """Display order confirmation after submission."""
+def display_order_confirmation(location_suffix=""):
+    """
+    Display order confirmation after submission.
+    
+    Args:
+        location_suffix: Optional suffix to make button keys unique based on location
+    """
     if 'order_confirmed' in st.session_state and st.session_state.order_confirmed:
         st.success("✅ Order successfully submitted!")
         
@@ -144,19 +149,74 @@ def display_order_confirmation():
             with st.expander("Order Details", expanded=True):
                 details = st.session_state.order_details
                 if isinstance(details, dict):
-                    if 'order_id' in details:
-                        st.write(f"**Order ID:** {details['order_id']}")
-                    if 'order_date' in details:
-                        st.write(f"**Order Date:** {details['order_date']}")
-                    if 'status' in details:
-                        st.write(f"**Status:** {details['status']}")
+                    # Extract order ID and details
+                    order_id = details.get('order_id', 'Unknown')
+                    status = details.get('status', 'Processing')
+                    
+                    # Display basic order information
+                    st.markdown(f"**Order ID:** {order_id}")
+                    
+                    # Display date if available or use current date
+                    from datetime import datetime
+                    order_date = details.get('order_date', datetime.now().strftime("%Y-%m-%d"))
+                    st.markdown(f"**Order Date:** {order_date}")
+                    
+                    # Display status
+                    st.markdown(f"**Status:** {status}")
+                    
+                    # Display total if available
                     if 'order_total' in details:
-                        st.write(f"**Total:** ${details['order_total']:.2f}")
+                        st.markdown(f"**Total:** ${details['order_total']:.2f}")
+                    
+                    # Display items if available
+                    if 'items' in details and isinstance(details['items'], list):
+                        st.markdown("### Items")
+                        for idx, item in enumerate(details['items']):
+                            if isinstance(item, dict):
+                                product_id = item.get('product_id', 'Unknown')
+                                quantity = item.get('quantity', 1)
+                                st.markdown(f"- {idx+1}. {product_id} (Qty: {quantity})")
+                    
+                    # Fallback to display the complete saved cart
+                    elif hasattr(st, 'session_state') and 'cart' in st.session_state:
+                        saved_cart = st.session_state.cart
+                        if saved_cart:
+                            st.markdown("### Items from Your Cart")
+                            for idx, item in enumerate(saved_cart):
+                                if isinstance(item, dict):
+                                    name = item.get('name', item.get('product_id', 'Unknown Product'))
+                                    quantity = item.get('quantity', 1)
+                                    price = item.get('price', 0.0)
+                                    st.markdown(f"- {idx+1}. {name} (Qty: {quantity}, Price: ${price:.2f})")
                 else:
+                    # Fallback if order details not in expected format
                     st.json(details)
+        else:
+            # If no specific order details but we have confirmation
+            st.markdown("Your order has been processed successfully. Thank you for shopping with us!")
+            if hasattr(st, 'session_state') and 'cart' in st.session_state:
+                with st.expander("Order Summary", expanded=True):
+                    saved_cart = st.session_state.cart
+                    if saved_cart:
+                        # Calculate total
+                        total = sum(
+                            float(item.get('price', 0)) * int(item.get('quantity', 1)) 
+                            for item in saved_cart 
+                            if 'price' in item and 'quantity' in item
+                        )
+                        
+                        st.markdown(f"**Total:** ${total:.2f}")
+                        st.markdown("### Items")
+                        for idx, item in enumerate(saved_cart):
+                            if isinstance(item, dict):
+                                name = item.get('name', item.get('product_id', 'Unknown Product'))
+                                quantity = item.get('quantity', 1)
+                                price = item.get('price', 0.0)
+                                st.markdown(f"- {idx+1}. {name} (Qty: {quantity}, Price: ${price:.2f})")
         
-        # Option to start a new order
-        if st.button("Start New Order"):
+        # Option to start a new order with a unique key for each location
+        button_key = f"start_new_order_button{location_suffix}"
+        if st.button("Start New Order", key=button_key):
             # Clear the confirmation and reset the cart
             st.session_state.order_confirmed = False
             if 'order_details' in st.session_state:

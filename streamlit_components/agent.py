@@ -5,6 +5,16 @@ Agent interaction component for the Streamlit app.
 import logging
 import json
 import streamlit as st
+import sys
+
+# Configure root logger to ensure messages appear in console
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+    handlers=[
+        logging.StreamHandler(sys.stdout)  # Ensure logs go to stdout for Streamlit
+    ]
+)
 
 from streamlit_components.utils import call_agent_api, parse_sse_response, update_cart_display
 from streamlit_components.config import (
@@ -15,7 +25,31 @@ from streamlit_components.config import (
 )
 from streamlit_components.chat import is_cart_related_query
 
+# Get logger for this module
 logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
+
+# Add a console handler if one doesn't exist
+has_stdout_handler = False
+for handler in logger.handlers:
+    if isinstance(handler, logging.StreamHandler) and handler.stream == sys.stdout:
+        has_stdout_handler = True
+        break
+
+if not has_stdout_handler:
+    console_handler = logging.StreamHandler(sys.stdout)
+    console_handler.setLevel(logging.INFO)
+    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    console_handler.setFormatter(formatter)
+    logger.addHandler(console_handler)
+
+# Log startup message to verify logging is working
+logger.info("==== STREAMLIT AGENT COMPONENT INITIALIZED ====")
+logger.info(f"Agent Base URL: {AGENT_BASE_URL}")
+logger.info(f"Agent App Name: {AGENT_APP_NAME}")
+logger.info(f"Agent Run Path: {AGENT_RUN_PATH}")
+logger.info(f"Using customer ID: CUST-80CA281C")
+logger.info("=================================================")
 
 def process_agent_interaction():
     """Process the user's message and get response from the agent."""
@@ -25,6 +59,10 @@ def process_agent_interaction():
         or st.session_state.processing_message
     ):
         return
+    
+    logger.info("----- PROCESSING NEW USER MESSAGE -----")
+    logger.info(f"Session ID: {st.session_state.get('session_id', 'not set')}")
+    logger.info(f"Message: {st.session_state.messages[-1]['content']}")
         
     st.session_state.processing_message = True  # Set flag
     user_prompt = st.session_state.messages[-1]["content"]
@@ -57,18 +95,41 @@ def process_agent_interaction():
         }
 
         logger.info(f"Attempting run POST to: {run_url}")
+        
+        # Add debug info for the request
+        with st.sidebar:
+            with st.expander("Agent Request", expanded=False):
+                st.write("**Request Details**")
+                st.code(f"URL: {run_url}\nPayload: {json.dumps(run_payload, indent=2)}")
+        
         with st.spinner("Thinking..."):
             response = call_agent_api(run_url, run_payload, headers, timeout=45)
             # Store raw response for debugging
             st.session_state.last_raw_response = response.text[:10000]  # Limit size
+            
+            # Add debug info for the response
+            with st.sidebar:
+                with st.expander("Agent Response", expanded=False):
+                    st.write("**Response Details**")
+                    st.code(f"Status: {response.status_code}\nContent Type: {response.headers.get('Content-Type', 'Not specified')}\nBody Sample: {response.text[:500]}")
+            
+            logger.info(f"Received response with status: {response.status_code}, content-type: {response.headers.get('Content-Type', 'Not specified')}")
             assistant_response_text, tool_outputs, order_confirmed = parse_sse_response(response.text)
             
-            # Store tool outputs for debugging
+            # Store and display tool outputs for debugging
             if tool_outputs:
                 if 'tool_outputs' not in st.session_state:
                     st.session_state.tool_outputs = {}
                 for tool_name, output in tool_outputs.items():
                     st.session_state.tool_outputs[tool_name] = output
+                
+                # Add tool outputs to debug UI
+                with st.sidebar:
+                    with st.expander("Tool Outputs", expanded=False):
+                        st.write("**Tools Used:**")
+                        for tool_name, output in tool_outputs.items():
+                            st.write(f"**{tool_name}:**")
+                            st.code(json.dumps(output, indent=2)[:500])
                     
             # Handle order confirmation
             if order_confirmed:
@@ -104,16 +165,44 @@ def process_agent_interaction():
     # --- Error Handling (Consolidated) ---
     except Exception as e:
         logger.error("An error occurred during agent interaction", exc_info=True)
+        error_message = str(e)
         assistant_response_text = "Sorry, an error occurred while processing your request."
+        
+        # Show error details in the UI
+        with st.sidebar:
+            with st.expander("Error Details", expanded=True):
+                st.error(f"**Agent Interaction Error:**\n{error_message}")
+                if hasattr(e, 'response') and e.response is not None:
+                    st.code(f"Status: {e.response.status_code}\nResponse: {e.response.text[:500]}")
     finally:
         st.session_state.processing_message = False  # Release flag
 
     # --- Finalize Interaction ---
     # Add assistant response to history if one exists and it wasn't a system message
     if assistant_response_text and not is_system_message:
+        # Log the response text before adding to messages to check formatting
+        logger.info("==== RESPONSE TO BE ADDED TO MESSAGES ====")
+        logger.info(f"RAW Response content: {assistant_response_text}")
+        logger.info("============================================")
+        
+        # Add debug UI in sidebar
+        with st.sidebar:
+            with st.expander("Raw Agent Response", expanded=True):
+                st.write("**Raw response from agent (will be added to messages):**")
+                st.code(assistant_response_text)
+                st.write("**Preview how it should render:**")
+                st.markdown(assistant_response_text, unsafe_allow_html=True)
+        
+        # Add to message history
         st.session_state.messages.append(
             {"role": "assistant", "content": assistant_response_text}
         )
+        
+        # Debug the current state of messages
+        logger.info(f"Updated messages. Count: {len(st.session_state.messages)}")
+        for i, msg in enumerate(st.session_state.messages):
+            logger.info(f"Message {i}: role={msg['role']}, content_start={msg['content'][:50]}...")
+        
         st.rerun()  # Rerun to display the new assistant message and potentially updated cart
 
 
@@ -121,16 +210,43 @@ def ensure_agent_session(session_id, user_id, headers):
     """Ensure an agent session exists for the user."""
     if not st.session_state.get("session_initialized", False):
         logger.info(f"Initializing session {session_id} for user {user_id}")
-        session_path = AGENT_SESSION_PATH_TEMPLATE.format(
-            app_name=AGENT_APP_NAME, user_id=user_id, session_id=session_id
-        )
-        session_url = f"{AGENT_BASE_URL}{session_path}"
-        session_payload = {"state": {}}
-        session_response = call_agent_api(
-            session_url, session_payload, headers, timeout=15
-        )
-        st.session_state.session_initialized = True
-        logger.info(f"Session {session_id} initialized successfully.")
+        try:
+            session_path = AGENT_SESSION_PATH_TEMPLATE.format(
+                app_name=AGENT_APP_NAME, user_id=user_id, session_id=session_id
+            )
+            session_url = f"{AGENT_BASE_URL}{session_path}"
+            logger.info(f"Session URL: {session_url}")
+            session_payload = {"state": {}}
+            
+            # Add debugging info directly to UI
+            with st.sidebar:
+                with st.expander("Debug Info", expanded=False):
+                    st.write("**Session Initialization**")
+                    st.code(f"URL: {session_url}\nPayload: {json.dumps(session_payload, indent=2)}")
+            
+            session_response = call_agent_api(
+                session_url, session_payload, headers, timeout=15
+            )
+            st.session_state.session_initialized = True
+            logger.info(f"Session {session_id} initialized successfully.")
+            
+            # Update debug info with success
+            with st.sidebar:
+                with st.expander("Debug Info", expanded=False):
+                    st.write("**Session Response**")
+                    st.code(f"Status: {session_response.status_code}\nBody: {session_response.text[:500]}")
+        
+        except Exception as e:
+            logger.error(f"Failed to initialize session: {str(e)}")
+            
+            # Update debug info with error
+            with st.sidebar:
+                with st.expander("Debug Info", expanded=False):
+                    st.write("**Session Error**")
+                    st.error(f"Failed to initialize session: {str(e)}")
+            
+            # Continue without failing - we'll try again later
+            st.session_state.session_initialized = False
 
 
 def format_effective_prompt(user_prompt):
