@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  streamlit:
+    build: .
+    ports:
+      - "8501:8501"
+    environment:
+      - AGENT_BASE_URL=https://customer-service-agent-190206934161.us-central1.run.app
+      - AGENT_APP_NAME=customer-service-agent-app
+    volumes:
+      # Mount the database directory for persistence
+      - ./customer_service/database:/app/customer_service/database
+    restart: unless-stopped
