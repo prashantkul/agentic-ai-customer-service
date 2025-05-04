@@ -56,3 +56,6 @@ Claude.txt
 
 # Add local_tests directory
 local_tests/
+
+# images
+images/
