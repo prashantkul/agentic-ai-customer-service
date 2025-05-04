@@ -49,3 +49,10 @@ ENV/
 # Logs
 *.log
 logs/
+
+#Claude
+Claude.MD
+Claude.txt
+
+# Add local_tests directory
+local_tests/

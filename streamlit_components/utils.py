@@ -7,19 +7,38 @@ import logging
 import re
 import requests
 import streamlit as st
+import sys
 
 logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
+
+# Ensure we have a console handler
+console_handler = logging.StreamHandler(sys.stdout)
+console_handler.setLevel(logging.INFO)
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+console_handler.setFormatter(formatter)
+logger.addHandler(console_handler)
+
+logger.info("==== STREAMLIT UTILS MODULE INITIALIZED ====")
 
 def call_agent_api(url, payload, headers, timeout=45):
     """Handles POST requests to the agent API and basic error checking."""
     logger.info(f"POST Request to: {url}")
-    logger.debug(f"Headers: {headers}")
-    logger.debug(f"Payload: {json.dumps(payload)}")
-    response = requests.post(url, json=payload, headers=headers, timeout=timeout)
-    logger.info(f"Response Status: {response.status_code}")
-    logger.debug(f"Response Body: {response.text}")
-    response.raise_for_status()
-    return response
+    logger.info(f"Headers: {headers}")
+    logger.info(f"Payload: {json.dumps(payload)}")
+    try:
+        response = requests.post(url, json=payload, headers=headers, timeout=timeout)
+        logger.info(f"Response Status: {response.status_code}")
+        logger.info(f"Response Content-Type: {response.headers.get('Content-Type', 'Not specified')}")
+        logger.info(f"Response Body (first 500 chars): {response.text[:500]}")
+        response.raise_for_status()
+        return response
+    except requests.RequestException as e:
+        logger.error(f"Request failed: {str(e)}")
+        if hasattr(e, 'response') and e.response is not None:
+            logger.error(f"Error response status: {e.response.status_code}")
+            logger.error(f"Error response body: {e.response.text[:500]}")
+        raise
 
 
 def parse_sse_response(response_text):
@@ -245,30 +264,74 @@ def update_cart_display(cart_data):
     """Updates the st.session_state.cart based on fetched data."""
     logger.info(f"Received cart_data of type {type(cart_data)}: {cart_data}")
     
-    if isinstance(cart_data, dict) and "cart" in cart_data:
-        st.session_state.cart = cart_data["cart"]  # Extract the cart items list
-        logger.info(f"Cart updated in session state from dict: {st.session_state.cart}")
-        return True
-    elif isinstance(cart_data, list):  # If the tool returns the list directly
-        st.session_state.cart = cart_data
-        logger.info(f"Cart updated in session state from list: {st.session_state.cart}")
-        return True
-    elif isinstance(cart_data, str):  # Handle string responses (might be JSON string)
-        try:
-            # Try to parse as JSON
-            parsed_data = json.loads(cart_data)
-            logger.info(f"Parsed string cart data: {parsed_data}")
+    try:
+        # Handle dictionary format with "cart" key
+        if isinstance(cart_data, dict):
+            if "cart" in cart_data:
+                st.session_state.cart = cart_data["cart"]  # Extract the cart items list
+                logger.info(f"Cart updated in session state from dict: {st.session_state.cart}")
+                
+                # If dict includes subtotal, store it
+                if "subtotal" in cart_data:
+                    st.session_state.cart_subtotal = cart_data["subtotal"]
+                    
+                return True
+            else:
+                # If dict doesn't have "cart" key but looks like a direct cart item
+                # (This handles if agent returns a single item instead of a list)
+                if any(key in cart_data for key in ["product_id", "name", "quantity", "price"]):
+                    st.session_state.cart = [cart_data]  # Wrap in list since it's a single item
+                    logger.info(f"Cart updated with single item: {st.session_state.cart}")
+                    return True
+                    
+        # Handle list format
+        elif isinstance(cart_data, list):
+            st.session_state.cart = cart_data
+            logger.info(f"Cart updated in session state from list: {st.session_state.cart}")
             
-            if isinstance(parsed_data, dict) and "cart" in parsed_data:
-                st.session_state.cart = parsed_data["cart"]
-                return True
-            elif isinstance(parsed_data, list):
-                st.session_state.cart = parsed_data
-                return True
-        except json.JSONDecodeError as e:
-            logger.error(f"Failed to parse cart data string as JSON: {e}")
-    
-    # If we get here, format wasn't recognized
-    logger.warning(f"Received unexpected cart data format: {type(cart_data)}")
-    logger.warning(f"Cart data content: {cart_data}")
-    return False
+            # Calculate subtotal from the items
+            subtotal = 0.0
+            for item in cart_data:
+                if isinstance(item, dict) and "price" in item and "quantity" in item:
+                    try:
+                        price = float(item["price"])
+                        quantity = int(item["quantity"])
+                        subtotal += price * quantity
+                    except (ValueError, TypeError):
+                        logger.warning(f"Could not calculate item subtotal for: {item}")
+                        
+            st.session_state.cart_subtotal = subtotal
+            return True
+            
+        # Handle string responses (might be JSON string)
+        elif isinstance(cart_data, str):
+            try:
+                # Try to parse as JSON
+                parsed_data = json.loads(cart_data)
+                logger.info(f"Parsed string cart data: {parsed_data}")
+                return update_cart_display(parsed_data)  # Recursively call with parsed data
+            except json.JSONDecodeError as e:
+                logger.error(f"Failed to parse cart data string as JSON: {e}")
+        
+        # If cart is empty or None, initialize as empty list
+        elif cart_data is None:
+            st.session_state.cart = []
+            st.session_state.cart_subtotal = 0.0
+            logger.info("Cart initialized as empty")
+            return True
+            
+        # If we get here, format wasn't recognized
+        logger.warning(f"Received unexpected cart data format: {type(cart_data)}")
+        logger.warning(f"Cart data content: {cart_data}")
+        
+        # As a fallback to avoid completely broken UI, ensure cart is at least initialized
+        if "cart" not in st.session_state:
+            st.session_state.cart = []
+            
+        return False
+    except Exception as e:
+        logger.error(f"Error updating cart display: {e}")
+        # Ensure cart exists to avoid UI errors
+        if "cart" not in st.session_state:
+            st.session_state.cart = []
+        return False

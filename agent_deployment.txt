@@ -5,6 +5,7 @@ export SERVICE_NAME="customer-service-agent"
 export APP_NAME="customer-service-agent-app"
 export GOOGLE_GENAI_USE_VERTEXAI=True
 export APP_URL=https://customer-service-agent-190206934161.us-central1.run.app
+export AGENT_BASE_URL=$APP_URL
 
 (google-adk) pskulkarni@pskulkarni-macbookpro ~/Documents/source-code/customer-service $ curl -X GET $APP_URL/list-apps
 ["customer-service-agent-app"](google-adk)

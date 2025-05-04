@@ -8,12 +8,18 @@ import streamlit as st
 logger = logging.getLogger(__name__)
 
 def display_chat_messages():
-    """Display the chat message history."""
+    """Display the chat message history using plain text without markdown."""
     st.subheader("Conversation")
+    
     # Display existing chat messages
-    for msg in st.session_state.messages:
+    for i, msg in enumerate(st.session_state.messages):
+        # Log message content for debugging
+        logger.info(f"Rendering message {i} (role: {msg['role']}): {msg['content'][:100]}...")
+        
+        # Display in chat UI with standard components
         with st.chat_message(msg["role"]):
-            st.write(msg["content"])
+            # Use plain text display without markdown formatting
+            st.text(msg["content"])
 
 
 def handle_user_input():

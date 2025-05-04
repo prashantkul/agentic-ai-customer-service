@@ -1,0 +1,902 @@
+[
+  {
+    "id": "TEN-SHOE-001",
+    "name": "ProSpin All Court Tennis Shoes",
+    "description": "ProSpin All Court tennis shoes designed for optimal court performance and comfort.",
+    "price": 189.95,
+    "category": "Footwear",
+    "sport": "Tennis",
+    "image_url": "gs://bettersale-product-images/tennis/footwear/ten_shoe_001.jpg"
+  },
+  {
+    "id": "TEN-RAC-002",
+    "name": "GrandSlam Professional Tennis Racket",
+    "description": "GrandSlam Professional tennis racket with perfect balance and precision for players of all levels.",
+    "price": 145.0,
+    "category": "Equipment",
+    "sport": "Tennis",
+    "image_url": "gs://bettersale-product-images/tennis/equipment/ten_rac_002.jpg"
+  },
+  {
+    "id": "TEN-BALLS-003",
+    "name": "ProSpin Professional Tennis Balls",
+    "description": "ProSpin Professional tennis racket with perfect balance and precision for players of all levels.",
+    "price": 14.99,
+    "category": "Equipment",
+    "sport": "Tennis",
+    "image_url": "gs://bettersale-product-images/tennis/equipment/ten_balls_003.jpg"
+  },
+  {
+    "id": "TEN-BAG-004",
+    "name": "ProSpin Water-Resistant Tennis Bag",
+    "description": "ProSpin Water-Resistant tennis accessory designed for serious players.",
+    "price": 53.5,
+    "category": "Accessories",
+    "sport": "Tennis",
+    "image_url": "gs://bettersale-product-images/tennis/accessories/ten_bag_004.jpg"
+  },
+  {
+    "id": "TEN-APP-005",
+    "name": "AceServe Moisture-Wicking Tennis Apparel",
+    "description": "AceServe Moisture-Wicking tennis apparel for maximum performance and style on the court.",
+    "price": 39.99,
+    "category": "Apparel",
+    "sport": "Tennis",
+    "image_url": "gs://bettersale-product-images/tennis/apparel/ten_app_005.jpg"
+  },
+  {
+    "id": "TEN-STRI-006",
+    "name": "ProSpin Aluminum Racket Strings",
+    "description": "ProSpin Aluminum tennis racket with perfect balance and precision for players of all levels.",
+    "price": 43.0,
+    "category": "Equipment",
+    "sport": "Tennis",
+    "image_url": "gs://bettersale-product-images/tennis/equipment/ten_stri_006.jpg"
+  },
+  {
+    "id": "RUN-SHOE-007",
+    "name": "MilesAhead Road Running Shoes",
+    "description": "MilesAhead Road running shoes engineered for optimal performance and comfort on any terrain.",
+    "price": 166.0,
+    "category": "Footwear",
+    "sport": "Running",
+    "image_url": "gs://bettersale-product-images/running/footwear/run_shoe_007.jpg"
+  },
+  {
+    "id": "RUN-SOCK-008",
+    "name": "TrailMax Reflective Running Socks",
+    "description": "TrailMax Reflective running apparel designed to enhance performance and comfort during your run.",
+    "price": 26.5,
+    "category": "Apparel",
+    "sport": "Running",
+    "image_url": "gs://bettersale-product-images/running/apparel/run_sock_008.jpg"
+  },
+  {
+    "id": "RUN-SHIRT-009",
+    "name": "MilesAhead Compression Running Shirt",
+    "description": "MilesAhead Compression running apparel designed to enhance performance and comfort during your run.",
+    "price": 35.0,
+    "category": "Apparel",
+    "sport": "Running",
+    "image_url": "gs://bettersale-product-images/running/apparel/run_shirt_009.jpg"
+  },
+  {
+    "id": "RUN-SHORT-010",
+    "name": "TrailMax All-Weather Running Shorts",
+    "description": "TrailMax All-Weather running apparel designed to enhance performance and comfort during your run.",
+    "price": 62.5,
+    "category": "Apparel",
+    "sport": "Running",
+    "image_url": "gs://bettersale-product-images/running/apparel/run_short_010.jpg"
+  },
+  {
+    "id": "RUN-WATCH-011",
+    "name": "RoadRunner Bluetooth Running Watch",
+    "description": "RoadRunner Bluetooth running watch with advanced metrics to track and improve your performance.",
+    "price": 233.5,
+    "category": "Electronics",
+    "sport": "Running",
+    "image_url": "gs://bettersale-product-images/running/electronics/run_watch_011.jpg"
+  },
+  {
+    "id": "RUN-BOTTLE-012",
+    "name": "SpeedForce Lightweight Water Bottle",
+    "description": "SpeedForce Lightweight running accessory to enhance your training and race day experience.",
+    "price": 17.0,
+    "category": "Accessories",
+    "sport": "Running",
+    "image_url": "gs://bettersale-product-images/running/accessories/run_bottle_012.jpg"
+  },
+  {
+    "id": "BKB-BALL-013",
+    "name": "SlamDunk Official Size Basketball",
+    "description": "SlamDunk Official Size Basketball designed for optimal performance and comfort.",
+    "price": 21.0,
+    "category": "Equipment",
+    "sport": "Basketball",
+    "image_url": "gs://bettersale-product-images/basketball/equipment/bkb_ball_013.jpg"
+  },
+  {
+    "id": "BKB-SHOE-014",
+    "name": "SlamDunk Mid-Top Basketball Shoes",
+    "description": "SlamDunk Mid-Top Basketball Shoes designed for optimal performance and comfort.",
+    "price": 132.0,
+    "category": "Footwear",
+    "sport": "Basketball",
+    "image_url": "gs://bettersale-product-images/basketball/footwear/bkb_shoe_014.jpg"
+  },
+  {
+    "id": "BKB-HOOP-015",
+    "name": "BallPro Professional Basketball Hoop",
+    "description": "BallPro Professional Basketball Hoop designed for optimal performance and comfort.",
+    "price": 150.5,
+    "category": "Equipment",
+    "sport": "Basketball",
+    "image_url": "gs://bettersale-product-images/basketball/equipment/bkb_hoop_015.jpg"
+  },
+  {
+    "id": "BKB-JERSEY-016",
+    "name": "HoopStar Reversible Basketball Jersey",
+    "description": "HoopStar Reversible Basketball Jersey designed for optimal performance and comfort.",
+    "price": 90.99,
+    "category": "Apparel",
+    "sport": "Basketball",
+    "image_url": "gs://bettersale-product-images/basketball/apparel/bkb_jersey_016.jpg"
+  },
+  {
+    "id": "BKB-SHORT-017",
+    "name": "CourtKing Breathable Basketball Shorts",
+    "description": "CourtKing Breathable Basketball Shorts designed for optimal performance and comfort.",
+    "price": 57.5,
+    "category": "Apparel",
+    "sport": "Basketball",
+    "image_url": "gs://bettersale-product-images/basketball/apparel/bkb_short_017.jpg"
+  },
+  {
+    "id": "BKB-SOCK-018",
+    "name": "BallPro Streetball Basketball Socks",
+    "description": "BallPro Streetball Basketball Socks designed for optimal performance and comfort.",
+    "price": 13.95,
+    "category": "Apparel",
+    "sport": "Basketball",
+    "image_url": "gs://bettersale-product-images/basketball/apparel/bkb_sock_018.jpg"
+  },
+  {
+    "id": "SOC-BALL-019",
+    "name": "WorldCup Training Ball Soccer Ball",
+    "description": "WorldCup Training Ball Soccer Ball designed for optimal performance and comfort.",
+    "price": 56.5,
+    "category": "Equipment",
+    "sport": "Soccer",
+    "image_url": "gs://bettersale-product-images/soccer/equipment/soc_ball_019.jpg"
+  },
+  {
+    "id": "SOC-CLEAT-020",
+    "name": "KickPro Indoor Soccer Cleats",
+    "description": "KickPro Indoor Soccer Cleats designed for optimal performance and comfort.",
+    "price": 207.99,
+    "category": "Footwear",
+    "sport": "Soccer",
+    "image_url": "gs://bettersale-product-images/soccer/footwear/soc_cleat_020.jpg"
+  },
+  {
+    "id": "SOC-GOAL-021",
+    "name": "GoalStrike Professional Soccer Goal",
+    "description": "GoalStrike Professional Soccer Goal designed for optimal performance and comfort.",
+    "price": 182.95,
+    "category": "Equipment",
+    "sport": "Soccer",
+    "image_url": "gs://bettersale-product-images/soccer/equipment/soc_goal_021.jpg"
+  },
+  {
+    "id": "SOC-JERSEY-022",
+    "name": "FieldMaster Club Soccer Jersey",
+    "description": "FieldMaster Club Soccer Jersey designed for optimal performance and comfort.",
+    "price": 93.95,
+    "category": "Apparel",
+    "sport": "Soccer",
+    "image_url": "gs://bettersale-product-images/soccer/apparel/soc_jersey_022.jpg"
+  },
+  {
+    "id": "SOC-SHORT-023",
+    "name": "WorldCup Professional Soccer Shorts",
+    "description": "WorldCup Professional Soccer Shorts designed for optimal performance and comfort.",
+    "price": 62.99,
+    "category": "Apparel",
+    "sport": "Soccer",
+    "image_url": "gs://bettersale-product-images/soccer/apparel/soc_short_023.jpg"
+  },
+  {
+    "id": "SOC-SOCK-024",
+    "name": "ScorePerfect Moisture-Wicking Soccer Socks",
+    "description": "ScorePerfect Moisture-Wicking Soccer Socks designed for optimal performance and comfort.",
+    "price": 22.0,
+    "category": "Apparel",
+    "sport": "Soccer",
+    "image_url": "gs://bettersale-product-images/soccer/apparel/soc_sock_024.jpg"
+  },
+  {
+    "id": "GOLF-CLUB-025",
+    "name": "TeeElite Driver Golf Club",
+    "description": "TeeElite Driver Golf Club designed for optimal performance and comfort.",
+    "price": 754.99,
+    "category": "Equipment",
+    "sport": "Golf",
+    "image_url": "gs://bettersale-product-images/golf/equipment/golf_club_025.jpg"
+  },
+  {
+    "id": "GOLF-BALL-026",
+    "name": "PuttPerfect Wedge Golf Balls",
+    "description": "PuttPerfect Wedge Golf Balls designed for optimal performance and comfort.",
+    "price": 40.0,
+    "category": "Equipment",
+    "sport": "Golf",
+    "image_url": "gs://bettersale-product-images/golf/equipment/golf_ball_026.jpg"
+  },
+  {
+    "id": "GOLF-BAG-027",
+    "name": "DriveMax Hybrid Golf Bag",
+    "description": "DriveMax Hybrid Golf Bag designed for optimal performance and comfort.",
+    "price": 262.99,
+    "category": "Equipment",
+    "sport": "Golf",
+    "image_url": "gs://bettersale-product-images/golf/equipment/golf_bag_027.jpg"
+  },
+  {
+    "id": "GOLF-SHOE-028",
+    "name": "TeeElite Waterproof Golf Shoes",
+    "description": "TeeElite Waterproof Golf Shoes designed for optimal performance and comfort.",
+    "price": 214.0,
+    "category": "Footwear",
+    "sport": "Golf",
+    "image_url": "gs://bettersale-product-images/golf/footwear/golf_shoe_028.jpg"
+  },
+  {
+    "id": "GOLF-GLOVE-029",
+    "name": "GreenMaster Ergonomic Golf Glove",
+    "description": "GreenMaster Ergonomic Golf Glove designed for optimal performance and comfort.",
+    "price": 17.0,
+    "category": "Accessories",
+    "sport": "Golf",
+    "image_url": "gs://bettersale-product-images/golf/accessories/golf_glove_029.jpg"
+  },
+  {
+    "id": "GOLF-SHIRT-030",
+    "name": "DriveMax Moisture-Wicking Golf Shirt",
+    "description": "DriveMax Moisture-Wicking Golf Shirt designed for optimal performance and comfort.",
+    "price": 60.0,
+    "category": "Apparel",
+    "sport": "Golf",
+    "image_url": "gs://bettersale-product-images/golf/apparel/golf_shirt_030.jpg"
+  },
+  {
+    "id": "SWIM-SUIT-031",
+    "name": "WaveDive Competition Swimsuit",
+    "description": "WaveDive Competition Swimsuit designed for optimal performance and comfort.",
+    "price": 55.95,
+    "category": "Apparel",
+    "sport": "Swimming",
+    "image_url": "gs://bettersale-product-images/swimming/apparel/swim_suit_031.jpg"
+  },
+  {
+    "id": "SWIM-GOGGLE-032",
+    "name": "WaveDive Racing Swim Goggles",
+    "description": "WaveDive Racing Swim Goggles designed for optimal performance and comfort.",
+    "price": 66.0,
+    "category": "Equipment",
+    "sport": "Swimming",
+    "image_url": "gs://bettersale-product-images/swimming/equipment/swim_goggle_032.jpg"
+  },
+  {
+    "id": "SWIM-CAP-033",
+    "name": "AquaSpeed Training Swim Cap",
+    "description": "AquaSpeed Training Swim Cap designed for optimal performance and comfort.",
+    "price": 29.0,
+    "category": "Equipment",
+    "sport": "Swimming",
+    "image_url": "gs://bettersale-product-images/swimming/equipment/swim_cap_033.jpg"
+  },
+  {
+    "id": "SWIM-TOWEL-034",
+    "name": "SwimPro Lightweight Swim Towel",
+    "description": "SwimPro Lightweight Swim Towel designed for optimal performance and comfort.",
+    "price": 21.0,
+    "category": "Accessories",
+    "sport": "Swimming",
+    "image_url": "gs://bettersale-product-images/swimming/accessories/swim_towel_034.jpg"
+  },
+  {
+    "id": "SWIM-BOARD-035",
+    "name": "AquaSpeed Racing Kickboard",
+    "description": "AquaSpeed Racing Kickboard designed for optimal performance and comfort.",
+    "price": 27.99,
+    "category": "Equipment",
+    "sport": "Swimming",
+    "image_url": "gs://bettersale-product-images/swimming/equipment/swim_board_035.jpg"
+  },
+  {
+    "id": "SWIM-FIN-036",
+    "name": "HydroElite UV Protection Swim Fins",
+    "description": "HydroElite UV Protection Swim Fins designed for optimal performance and comfort.",
+    "price": 51.0,
+    "category": "Equipment",
+    "sport": "Swimming",
+    "image_url": "gs://bettersale-product-images/swimming/equipment/swim_fin_036.jpg"
+  },
+  {
+    "id": "CYCLE-BIKE-037",
+    "name": "PedalPower Road Bicycle",
+    "description": "PedalPower Road Bicycle designed for optimal performance and comfort.",
+    "price": 1216.5,
+    "category": "Equipment",
+    "sport": "Cycling",
+    "image_url": "gs://bettersale-product-images/cycling/equipment/cycle_bike_037.jpg"
+  },
+  {
+    "id": "CYCLE-HELM-038",
+    "name": "RoadRider Lightweight Cycling Helmet",
+    "description": "RoadRider Lightweight Cycling Helmet designed for optimal performance and comfort.",
+    "price": 163.99,
+    "category": "Safety",
+    "sport": "Cycling",
+    "image_url": "gs://bettersale-product-images/cycling/safety/cycle_helm_038.jpg"
+  },
+  {
+    "id": "CYCLE-JERSEY-039",
+    "name": "TrailCruiser Reflective Cycling Jersey",
+    "description": "TrailCruiser Reflective Cycling Jersey designed for optimal performance and comfort.",
+    "price": 86.99,
+    "category": "Apparel",
+    "sport": "Cycling",
+    "image_url": "gs://bettersale-product-images/cycling/apparel/cycle_jersey_039.jpg"
+  },
+  {
+    "id": "CYCLE-SHORT-040",
+    "name": "TrailCruiser Weather-Resistant Cycling Shorts",
+    "description": "TrailCruiser Weather-Resistant Cycling Shorts designed for optimal performance and comfort.",
+    "price": 62.0,
+    "category": "Apparel",
+    "sport": "Cycling",
+    "image_url": "gs://bettersale-product-images/cycling/apparel/cycle_short_040.jpg"
+  },
+  {
+    "id": "CYCLE-LIGHT-041",
+    "name": "TrailCruiser Lightweight Bike Lights",
+    "description": "TrailCruiser Lightweight Bike Lights designed for optimal performance and comfort.",
+    "price": 47.5,
+    "category": "Accessories",
+    "sport": "Cycling",
+    "image_url": "gs://bettersale-product-images/cycling/accessories/cycle_light_041.jpg"
+  },
+  {
+    "id": "CYCLE-LOCK-042",
+    "name": "RoadRider Anti-Theft Bike Lock",
+    "description": "RoadRider Anti-Theft Bike Lock designed for optimal performance and comfort.",
+    "price": 41.0,
+    "category": "Accessories",
+    "sport": "Cycling",
+    "image_url": "gs://bettersale-product-images/cycling/accessories/cycle_lock_042.jpg"
+  },
+  {
+    "id": "YOGA-MAT-043",
+    "name": "AsanaCore Alignment Yoga Mat",
+    "description": "AsanaCore Alignment Yoga Mat designed for optimal performance and comfort.",
+    "price": 21.99,
+    "category": "Equipment",
+    "sport": "Yoga",
+    "image_url": "gs://bettersale-product-images/yoga/equipment/yoga_mat_043.jpg"
+  },
+  {
+    "id": "YOGA-BLOCK-044",
+    "name": "OmBalance Eco-Friendly Yoga Block",
+    "description": "OmBalance Eco-Friendly Yoga Block designed for optimal performance and comfort.",
+    "price": 29.0,
+    "category": "Equipment",
+    "sport": "Yoga",
+    "image_url": "gs://bettersale-product-images/yoga/equipment/yoga_block_044.jpg"
+  },
+  {
+    "id": "YOGA-STRAP-045",
+    "name": "NamasteFit Alignment Yoga Strap",
+    "description": "NamasteFit Alignment Yoga Strap designed for optimal performance and comfort.",
+    "price": 10.99,
+    "category": "Equipment",
+    "sport": "Yoga",
+    "image_url": "gs://bettersale-product-images/yoga/equipment/yoga_strap_045.jpg"
+  },
+  {
+    "id": "YOGA-PANTS-046",
+    "name": "FlexPose Seamless Yoga Pants",
+    "description": "FlexPose Seamless Yoga Pants designed for optimal performance and comfort.",
+    "price": 112.99,
+    "category": "Apparel",
+    "sport": "Yoga",
+    "image_url": "gs://bettersale-product-images/yoga/apparel/yoga_pants_046.jpg"
+  },
+  {
+    "id": "YOGA-TOP-047",
+    "name": "ZenFlow Breathable Yoga Top",
+    "description": "ZenFlow Breathable Yoga Top designed for optimal performance and comfort.",
+    "price": 54.95,
+    "category": "Apparel",
+    "sport": "Yoga",
+    "image_url": "gs://bettersale-product-images/yoga/apparel/yoga_top_047.jpg"
+  },
+  {
+    "id": "YOGA-TOWEL-048",
+    "name": "OmBalance Washable Yoga Towel",
+    "description": "OmBalance Washable Yoga Towel designed for optimal performance and comfort.",
+    "price": 40.0,
+    "category": "Accessories",
+    "sport": "Yoga",
+    "image_url": "gs://bettersale-product-images/yoga/accessories/yoga_towel_048.jpg"
+  },
+  {
+    "id": "HIKE-BOOT-049",
+    "name": "TrailBlaze Gore-Tex Hiking Boots",
+    "description": "TrailBlaze Gore-Tex Hiking Boots designed for optimal performance and comfort.",
+    "price": 97.5,
+    "category": "Footwear",
+    "sport": "Hiking",
+    "image_url": "gs://bettersale-product-images/hiking/footwear/hike_boot_049.jpg"
+  },
+  {
+    "id": "HIKE-PACK-050",
+    "name": "PathFinder Water-Resistant Backpack",
+    "description": "PathFinder Water-Resistant Backpack designed for optimal performance and comfort.",
+    "price": 246.0,
+    "category": "Equipment",
+    "sport": "Hiking",
+    "image_url": "gs://bettersale-product-images/hiking/equipment/hike_pack_050.jpg"
+  },
+  {
+    "id": "HIKE-POLE-051",
+    "name": "PathFinder Hydration Trekking Poles",
+    "description": "PathFinder Hydration Trekking Poles designed for optimal performance and comfort.",
+    "price": 95.95,
+    "category": "Equipment",
+    "sport": "Hiking",
+    "image_url": "gs://bettersale-product-images/hiking/equipment/hike_pole_051.jpg"
+  },
+  {
+    "id": "HIKE-JACKET-052",
+    "name": "SummitSeeker Waterproof Hiking Jacket",
+    "description": "SummitSeeker Waterproof Hiking Jacket designed for optimal performance and comfort.",
+    "price": 129.0,
+    "category": "Apparel",
+    "sport": "Hiking",
+    "image_url": "gs://bettersale-product-images/hiking/apparel/hike_jacket_052.jpg"
+  },
+  {
+    "id": "HIKE-SOCK-053",
+    "name": "AlpineView UV Protection Hiking Socks",
+    "description": "AlpineView UV Protection Hiking Socks designed for optimal performance and comfort.",
+    "price": 20.95,
+    "category": "Apparel",
+    "sport": "Hiking",
+    "image_url": "gs://bettersale-product-images/hiking/apparel/hike_sock_053.jpg"
+  },
+  {
+    "id": "HIKE-BOTTLE-054",
+    "name": "TrailBlaze Leak-Proof Insulated Bottle",
+    "description": "TrailBlaze Leak-Proof Insulated Bottle designed for optimal performance and comfort.",
+    "price": 23.0,
+    "category": "Accessories",
+    "sport": "Hiking",
+    "image_url": "gs://bettersale-product-images/hiking/accessories/hike_bottle_054.jpg"
+  },
+  {
+    "id": "TEN-SHOE-055",
+    "name": "ProSpin Pro Tour Tennis Shoes",
+    "description": "ProSpin Pro Tour tennis shoes designed for optimal court performance and comfort.",
+    "price": 183.5,
+    "category": "Footwear",
+    "sport": "Tennis",
+    "image_url": "gs://bettersale-product-images/tennis/footwear/ten_shoe_055.jpg"
+  },
+  {
+    "id": "TEN-RAC-056",
+    "name": "AceServe Beginner Tennis Racket",
+    "description": "AceServe Beginner tennis racket with perfect balance and precision for players of all levels.",
+    "price": 145.5,
+    "category": "Equipment",
+    "sport": "Tennis",
+    "image_url": "gs://bettersale-product-images/tennis/equipment/ten_rac_056.jpg"
+  },
+  {
+    "id": "TEN-BALLS-057",
+    "name": "PowerCourt Professional Tennis Balls",
+    "description": "PowerCourt Professional tennis racket with perfect balance and precision for players of all levels.",
+    "price": 11.99,
+    "category": "Equipment",
+    "sport": "Tennis",
+    "image_url": "gs://bettersale-product-images/tennis/equipment/ten_balls_057.jpg"
+  },
+  {
+    "id": "TEN-BAG-058",
+    "name": "TopSpin Water-Resistant Tennis Bag",
+    "description": "TopSpin Water-Resistant tennis accessory designed for serious players.",
+    "price": 111.99,
+    "category": "Accessories",
+    "sport": "Tennis",
+    "image_url": "gs://bettersale-product-images/tennis/accessories/ten_bag_058.jpg"
+  },
+  {
+    "id": "TEN-APP-059",
+    "name": "AceServe Training Tennis Apparel",
+    "description": "AceServe Training tennis apparel for maximum performance and style on the court.",
+    "price": 56.95,
+    "category": "Apparel",
+    "sport": "Tennis",
+    "image_url": "gs://bettersale-product-images/tennis/apparel/ten_app_059.jpg"
+  },
+  {
+    "id": "TEN-STRI-060",
+    "name": "AceServe Carbon Fiber Racket Strings",
+    "description": "AceServe Carbon Fiber tennis racket with perfect balance and precision for players of all levels.",
+    "price": 37.0,
+    "category": "Equipment",
+    "sport": "Tennis",
+    "image_url": "gs://bettersale-product-images/tennis/equipment/ten_stri_060.jpg"
+  },
+  {
+    "id": "RUN-SHOE-061",
+    "name": "MilesAhead Road Running Shoes",
+    "description": "MilesAhead Road running shoes engineered for optimal performance and comfort on any terrain.",
+    "price": 83.0,
+    "category": "Footwear",
+    "sport": "Running",
+    "image_url": "gs://bettersale-product-images/running/footwear/run_shoe_061.jpg"
+  },
+  {
+    "id": "RUN-SOCK-062",
+    "name": "RoadRunner Reflective Running Socks",
+    "description": "RoadRunner Reflective running apparel designed to enhance performance and comfort during your run.",
+    "price": 11.99,
+    "category": "Apparel",
+    "sport": "Running",
+    "image_url": "gs://bettersale-product-images/running/apparel/run_sock_062.jpg"
+  },
+  {
+    "id": "RUN-SHIRT-063",
+    "name": "UltraStride Compression Running Shirt",
+    "description": "UltraStride Compression running apparel designed to enhance performance and comfort during your run.",
+    "price": 66.99,
+    "category": "Apparel",
+    "sport": "Running",
+    "image_url": "gs://bettersale-product-images/running/apparel/run_shirt_063.jpg"
+  },
+  {
+    "id": "RUN-SHORT-064",
+    "name": "SpeedForce Compression Running Shorts",
+    "description": "SpeedForce Compression running apparel designed to enhance performance and comfort during your run.",
+    "price": 63.0,
+    "category": "Apparel",
+    "sport": "Running",
+    "image_url": "gs://bettersale-product-images/running/apparel/run_short_064.jpg"
+  },
+  {
+    "id": "RUN-WATCH-065",
+    "name": "UltraStride Water-Resistant Running Watch",
+    "description": "UltraStride Water-Resistant running watch with advanced metrics to track and improve your performance.",
+    "price": 232.99,
+    "category": "Electronics",
+    "sport": "Running",
+    "image_url": "gs://bettersale-product-images/running/electronics/run_watch_065.jpg"
+  },
+  {
+    "id": "RUN-BOTTLE-066",
+    "name": "TrailMax BPA-Free Water Bottle",
+    "description": "TrailMax BPA-Free running accessory to enhance your training and race day experience.",
+    "price": 41.99,
+    "category": "Accessories",
+    "sport": "Running",
+    "image_url": "gs://bettersale-product-images/running/accessories/run_bottle_066.jpg"
+  },
+  {
+    "id": "BKB-BALL-067",
+    "name": "CourtKing Professional Basketball",
+    "description": "CourtKing Professional Basketball designed for optimal performance and comfort.",
+    "price": 67.0,
+    "category": "Equipment",
+    "sport": "Basketball",
+    "image_url": "gs://bettersale-product-images/basketball/equipment/bkb_ball_067.jpg"
+  },
+  {
+    "id": "BKB-SHOE-068",
+    "name": "BallPro Outdoor Basketball Shoes",
+    "description": "BallPro Outdoor Basketball Shoes designed for optimal performance and comfort.",
+    "price": 97.95,
+    "category": "Footwear",
+    "sport": "Basketball",
+    "image_url": "gs://bettersale-product-images/basketball/footwear/bkb_shoe_068.jpg"
+  },
+  {
+    "id": "BKB-HOOP-069",
+    "name": "CourtKing Outdoor Basketball Hoop",
+    "description": "CourtKing Outdoor Basketball Hoop designed for optimal performance and comfort.",
+    "price": 229.0,
+    "category": "Equipment",
+    "sport": "Basketball",
+    "image_url": "gs://bettersale-product-images/basketball/equipment/bkb_hoop_069.jpg"
+  },
+  {
+    "id": "BKB-JERSEY-070",
+    "name": "BallPro Reversible Basketball Jersey",
+    "description": "BallPro Reversible Basketball Jersey designed for optimal performance and comfort.",
+    "price": 44.99,
+    "category": "Apparel",
+    "sport": "Basketball",
+    "image_url": "gs://bettersale-product-images/basketball/apparel/bkb_jersey_070.jpg"
+  },
+  {
+    "id": "BKB-SHORT-071",
+    "name": "AirGame Performance Basketball Shorts",
+    "description": "AirGame Performance Basketball Shorts designed for optimal performance and comfort.",
+    "price": 39.95,
+    "category": "Apparel",
+    "sport": "Basketball",
+    "image_url": "gs://bettersale-product-images/basketball/apparel/bkb_short_071.jpg"
+  },
+  {
+    "id": "BKB-SOCK-072",
+    "name": "AirGame Breathable Basketball Socks",
+    "description": "AirGame Breathable Basketball Socks designed for optimal performance and comfort.",
+    "price": 14.95,
+    "category": "Apparel",
+    "sport": "Basketball",
+    "image_url": "gs://bettersale-product-images/basketball/apparel/bkb_sock_072.jpg"
+  },
+  {
+    "id": "SOC-BALL-073",
+    "name": "WorldCup Youth Soccer Ball",
+    "description": "WorldCup Youth Soccer Ball designed for optimal performance and comfort.",
+    "price": 85.5,
+    "category": "Equipment",
+    "sport": "Soccer",
+    "image_url": "gs://bettersale-product-images/soccer/equipment/soc_ball_073.jpg"
+  },
+  {
+    "id": "SOC-CLEAT-074",
+    "name": "WorldCup Turf Soccer Cleats",
+    "description": "WorldCup Turf Soccer Cleats designed for optimal performance and comfort.",
+    "price": 234.95,
+    "category": "Footwear",
+    "sport": "Soccer",
+    "image_url": "gs://bettersale-product-images/soccer/footwear/soc_cleat_074.jpg"
+  },
+  {
+    "id": "SOC-GOAL-075",
+    "name": "ScorePerfect Futsal Soccer Goal",
+    "description": "ScorePerfect Futsal Soccer Goal designed for optimal performance and comfort.",
+    "price": 103.5,
+    "category": "Equipment",
+    "sport": "Soccer",
+    "image_url": "gs://bettersale-product-images/soccer/equipment/soc_goal_075.jpg"
+  },
+  {
+    "id": "SOC-JERSEY-076",
+    "name": "KickPro Professional Soccer Jersey",
+    "description": "KickPro Professional Soccer Jersey designed for optimal performance and comfort.",
+    "price": 55.95,
+    "category": "Apparel",
+    "sport": "Soccer",
+    "image_url": "gs://bettersale-product-images/soccer/apparel/soc_jersey_076.jpg"
+  },
+  {
+    "id": "SOC-SHORT-077",
+    "name": "KickPro Club Soccer Shorts",
+    "description": "KickPro Club Soccer Shorts designed for optimal performance and comfort.",
+    "price": 60.99,
+    "category": "Apparel",
+    "sport": "Soccer",
+    "image_url": "gs://bettersale-product-images/soccer/apparel/soc_short_077.jpg"
+  },
+  {
+    "id": "SOC-SOCK-078",
+    "name": "GoalStrike Moisture-Wicking Soccer Socks",
+    "description": "GoalStrike Moisture-Wicking Soccer Socks designed for optimal performance and comfort.",
+    "price": 12.99,
+    "category": "Apparel",
+    "sport": "Soccer",
+    "image_url": "gs://bettersale-product-images/soccer/apparel/soc_sock_078.jpg"
+  },
+  {
+    "id": "GOLF-CLUB-079",
+    "name": "TeeElite Driver Golf Club",
+    "description": "TeeElite Driver Golf Club designed for optimal performance and comfort.",
+    "price": 796.95,
+    "category": "Equipment",
+    "sport": "Golf",
+    "image_url": "gs://bettersale-product-images/golf/equipment/golf_club_079.jpg"
+  },
+  {
+    "id": "GOLF-BALL-080",
+    "name": "FairwayPro Iron Set Golf Balls",
+    "description": "FairwayPro Iron Set Golf Balls designed for optimal performance and comfort.",
+    "price": 46.5,
+    "category": "Equipment",
+    "sport": "Golf",
+    "image_url": "gs://bettersale-product-images/golf/equipment/golf_ball_080.jpg"
+  },
+  {
+    "id": "GOLF-BAG-081",
+    "name": "FairwayPro Putter Golf Bag",
+    "description": "FairwayPro Putter Golf Bag designed for optimal performance and comfort.",
+    "price": 86.0,
+    "category": "Equipment",
+    "sport": "Golf",
+    "image_url": "gs://bettersale-product-images/golf/equipment/golf_bag_081.jpg"
+  },
+  {
+    "id": "GOLF-SHOE-082",
+    "name": "GreenMaster Spikeless Golf Shoes",
+    "description": "GreenMaster Spikeless Golf Shoes designed for optimal performance and comfort.",
+    "price": 91.95,
+    "category": "Footwear",
+    "sport": "Golf",
+    "image_url": "gs://bettersale-product-images/golf/footwear/golf_shoe_082.jpg"
+  },
+  {
+    "id": "GOLF-GLOVE-083",
+    "name": "FairwayPro Ergonomic Golf Glove",
+    "description": "FairwayPro Ergonomic Golf Glove designed for optimal performance and comfort.",
+    "price": 26.99,
+    "category": "Accessories",
+    "sport": "Golf",
+    "image_url": "gs://bettersale-product-images/golf/accessories/golf_glove_083.jpg"
+  },
+  {
+    "id": "GOLF-SHIRT-084",
+    "name": "FairwayPro Tournament Golf Shirt",
+    "description": "FairwayPro Tournament Golf Shirt designed for optimal performance and comfort.",
+    "price": 58.5,
+    "category": "Apparel",
+    "sport": "Golf",
+    "image_url": "gs://bettersale-product-images/golf/apparel/golf_shirt_084.jpg"
+  },
+  {
+    "id": "SWIM-SUIT-085",
+    "name": "SwimPro Competition Swimsuit",
+    "description": "SwimPro Competition Swimsuit designed for optimal performance and comfort.",
+    "price": 49.0,
+    "category": "Apparel",
+    "sport": "Swimming",
+    "image_url": "gs://bettersale-product-images/swimming/apparel/swim_suit_085.jpg"
+  },
+  {
+    "id": "SWIM-GOGGLE-086",
+    "name": "SwimPro UV Protection Swim Goggles",
+    "description": "SwimPro UV Protection Swim Goggles designed for optimal performance and comfort.",
+    "price": 46.5,
+    "category": "Equipment",
+    "sport": "Swimming",
+    "image_url": "gs://bettersale-product-images/swimming/equipment/swim_goggle_086.jpg"
+  },
+  {
+    "id": "SWIM-CAP-087",
+    "name": "AquaSpeed Racing Swim Cap",
+    "description": "AquaSpeed Racing Swim Cap designed for optimal performance and comfort.",
+    "price": 9.95,
+    "category": "Equipment",
+    "sport": "Swimming",
+    "image_url": "gs://bettersale-product-images/swimming/equipment/swim_cap_087.jpg"
+  },
+  {
+    "id": "SWIM-TOWEL-088",
+    "name": "TorpedoSwim Quick-Dry Swim Towel",
+    "description": "TorpedoSwim Quick-Dry Swim Towel designed for optimal performance and comfort.",
+    "price": 24.99,
+    "category": "Accessories",
+    "sport": "Swimming",
+    "image_url": "gs://bettersale-product-images/swimming/accessories/swim_towel_088.jpg"
+  },
+  {
+    "id": "SWIM-BOARD-089",
+    "name": "AquaSpeed Anti-Fog Kickboard",
+    "description": "AquaSpeed Anti-Fog Kickboard designed for optimal performance and comfort.",
+    "price": 16.0,
+    "category": "Equipment",
+    "sport": "Swimming",
+    "image_url": "gs://bettersale-product-images/swimming/equipment/swim_board_089.jpg"
+  },
+  {
+    "id": "SWIM-FIN-090",
+    "name": "AquaSpeed UV Protection Swim Fins",
+    "description": "AquaSpeed UV Protection Swim Fins designed for optimal performance and comfort.",
+    "price": 44.99,
+    "category": "Equipment",
+    "sport": "Swimming",
+    "image_url": "gs://bettersale-product-images/swimming/equipment/swim_fin_090.jpg"
+  },
+  {
+    "id": "CYCLE-BIKE-091",
+    "name": "RoadRider Mountain Bicycle",
+    "description": "RoadRider Mountain Bicycle designed for optimal performance and comfort.",
+    "price": 876.99,
+    "category": "Equipment",
+    "sport": "Cycling",
+    "image_url": "gs://bettersale-product-images/cycling/equipment/cycle_bike_091.jpg"
+  },
+  {
+    "id": "CYCLE-HELM-092",
+    "name": "RoadRider LED Cycling Helmet",
+    "description": "RoadRider LED Cycling Helmet designed for optimal performance and comfort.",
+    "price": 115.95,
+    "category": "Safety",
+    "sport": "Cycling",
+    "image_url": "gs://bettersale-product-images/cycling/safety/cycle_helm_092.jpg"
+  },
+  {
+    "id": "CYCLE-JERSEY-093",
+    "name": "PedalPower Padded Cycling Jersey",
+    "description": "PedalPower Padded Cycling Jersey designed for optimal performance and comfort.",
+    "price": 45.95,
+    "category": "Apparel",
+    "sport": "Cycling",
+    "image_url": "gs://bettersale-product-images/cycling/apparel/cycle_jersey_093.jpg"
+  },
+  {
+    "id": "CYCLE-SHORT-094",
+    "name": "SpinMax Reflective Cycling Shorts",
+    "description": "SpinMax Reflective Cycling Shorts designed for optimal performance and comfort.",
+    "price": 74.99,
+    "category": "Apparel",
+    "sport": "Cycling",
+    "image_url": "gs://bettersale-product-images/cycling/apparel/cycle_short_094.jpg"
+  },
+  {
+    "id": "CYCLE-LIGHT-095",
+    "name": "SpinMax Anti-Theft Bike Lights",
+    "description": "SpinMax Anti-Theft Bike Lights designed for optimal performance and comfort.",
+    "price": 47.99,
+    "category": "Accessories",
+    "sport": "Cycling",
+    "image_url": "gs://bettersale-product-images/cycling/accessories/cycle_light_095.jpg"
+  },
+  {
+    "id": "CYCLE-LOCK-096",
+    "name": "PedalPower Waterproof Bike Lock",
+    "description": "PedalPower Waterproof Bike Lock designed for optimal performance and comfort.",
+    "price": 34.95,
+    "category": "Accessories",
+    "sport": "Cycling",
+    "image_url": "gs://bettersale-product-images/cycling/accessories/cycle_lock_096.jpg"
+  },
+  {
+    "id": "YOGA-MAT-097",
+    "name": "AsanaCore Travel Yoga Mat",
+    "description": "AsanaCore Travel Yoga Mat designed for optimal performance and comfort.",
+    "price": 40.95,
+    "category": "Equipment",
+    "sport": "Yoga",
+    "image_url": "gs://bettersale-product-images/yoga/equipment/yoga_mat_097.jpg"
+  },
+  {
+    "id": "YOGA-BLOCK-098",
+    "name": "NamasteFit Travel Yoga Block",
+    "description": "NamasteFit Travel Yoga Block designed for optimal performance and comfort.",
+    "price": 17.5,
+    "category": "Equipment",
+    "sport": "Yoga",
+    "image_url": "gs://bettersale-product-images/yoga/equipment/yoga_block_098.jpg"
+  },
+  {
+    "id": "YOGA-STRAP-099",
+    "name": "FlexPose Extra Thick Yoga Strap",
+    "description": "FlexPose Extra Thick Yoga Strap designed for optimal performance and comfort.",
+    "price": 9.95,
+    "category": "Equipment",
+    "sport": "Yoga",
+    "image_url": "gs://bettersale-product-images/yoga/equipment/yoga_strap_099.jpg"
+  },
+  {
+    "id": "YOGA-PANTS-100",
+    "name": "ZenFlow Moisture-Wicking Yoga Pants",
+    "description": "ZenFlow Moisture-Wicking Yoga Pants designed for optimal performance and comfort.",
+    "price": 55.95,
+    "category": "Apparel",
+    "sport": "Yoga",
+    "image_url": "gs://bettersale-product-images/yoga/apparel/yoga_pants_100.jpg"
+  }
+]
