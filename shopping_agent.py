@@ -17,20 +17,11 @@ from streamlit_components.agent import process_agent_interaction
 from streamlit_components.inventory import display_inventory, display_products_by_sport
 
 # --- Page Configuration ---
-st.set_page_config(page_title="BetterSale Customer Service", layout="wide")
-
-# --- Header ---
-with st.container():
-    col1, col2 = st.columns([1, 6])
-    with col1:
-        try:
-            st.image("better-sale-logo.png", width=80)
-        except FileNotFoundError:
-            st.warning("Logo image not found.")
-    with col2:
-        st.title("BetterSale Customer Service")
-        st.caption("Your one-stop shop for sports equipment")
-    st.divider()
+st.set_page_config(
+    page_title="BetterSale Customer Service", 
+    layout="wide",
+    initial_sidebar_state="expanded"  
+)
 
 # --- Initialize Session State Variables ---
 if "messages" not in st.session_state:
@@ -48,6 +39,54 @@ if "processing_message" not in st.session_state:
     st.session_state.processing_message = False  # Flag to prevent re-entry
 if "active_tab" not in st.session_state:
     st.session_state.active_tab = "Shop"  # Default tab
+    
+# Add debug section to sidebar
+with st.sidebar:
+    st.write("### Debug Options")
+    display_debug_section()
+
+# Force sidebar to ALWAYS stay expanded with enhanced CSS
+st.markdown(
+    """
+    <style>
+    /* Make sure the sidebar is always expanded */
+    section[data-testid="stSidebar"][aria-expanded="true"] {
+        width: 350px !important;
+        min-width: 350px !important;
+        max-width: 350px !important;
+        display: block !important;
+        visibility: visible !important;
+    }
+    
+    /* Hide the collapse button */
+    button[kind="header"] {
+        display: none !important;
+    }
+    
+    /* Make sure the content doesn't overlap when sidebar is open */
+    .main .block-container {
+        max-width: calc(100% - 350px) !important;
+        padding-left: 350px !important;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
+
+
+# --- Header ---
+with st.container():
+    col1, col2 = st.columns([1, 6])
+    with col1:
+        try:
+            st.image("better-sale-logo.png", width=80)
+        except FileNotFoundError:
+            st.warning("Logo image not found.")
+    with col2:
+        st.title("BetterSale Customer Service")
+        st.caption("Your one-stop shop for sports equipment")
+    st.divider()
 
 # --- Tab Navigation ---
 tabs = st.tabs(["Shop with Agent", "Cart"])

@@ -10,12 +10,10 @@ RUN apt-get update && apt-get install -y \
 
 # Copy only the necessary files for the Streamlit app
 COPY requirements.txt .
-COPY README.md .
 COPY better-sale-logo.png .
-COPY streamlit_app_refactored.py .
+COPY shopping_agent.py .
 COPY streamlit_components/ ./streamlit_components/
 COPY customer_service/ ./customer_service/
-COPY iamges/ ./iamges/
 
 # Install dependencies
 RUN pip install --no-cache-dir -r requirements.txt
@@ -26,13 +24,14 @@ RUN chmod -R 777 customer_service/database
 # Set environment variables (will be overridden by Cloud Run)
 ENV PYTHONPATH=/app
 ENV PYTHONUNBUFFERED=1
+ENV PORT=8080
 
 # Default values that can be overridden at runtime
 ENV AGENT_BASE_URL=https://customer-service-agent-190206934161.us-central1.run.app
 ENV AGENT_APP_NAME=customer-service-agent-app
 
 # Expose Streamlit port
-EXPOSE 8501
+EXPOSE 8080
 
 # Start Streamlit app
-CMD ["streamlit", "run", "streamlit_app_refactored.py", "--server.port=8501", "--server.address=0.0.0.0"]
+CMD ["streamlit", "run", "shopping_agent.py", "--server.port=8080", "--server.address=0.0.0.0", "--server.enableCORS=false", "--server.headless=true"]

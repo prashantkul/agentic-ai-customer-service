@@ -99,6 +99,7 @@ def process_agent_interaction():
         # Add debug info for the request
         with st.sidebar:
             with st.expander("Agent Request", expanded=False):
+                    
                 st.write("**Request Details**")
                 st.code(f"URL: {run_url}\nPayload: {json.dumps(run_payload, indent=2)}")
         
@@ -110,6 +111,7 @@ def process_agent_interaction():
             # Add debug info for the response
             with st.sidebar:
                 with st.expander("Agent Response", expanded=False):
+                        
                     st.write("**Response Details**")
                     st.code(f"Status: {response.status_code}\nContent Type: {response.headers.get('Content-Type', 'Not specified')}\nBody Sample: {response.text[:500]}")
             
@@ -126,6 +128,7 @@ def process_agent_interaction():
                 # Add tool outputs to debug UI
                 with st.sidebar:
                     with st.expander("Tool Outputs", expanded=False):
+                            
                         st.write("**Tools Used:**")
                         for tool_name, output in tool_outputs.items():
                             st.write(f"**{tool_name}:**")
@@ -171,6 +174,7 @@ def process_agent_interaction():
         # Show error details in the UI
         with st.sidebar:
             with st.expander("Error Details", expanded=True):
+                
                 st.error(f"**Agent Interaction Error:**\n{error_message}")
                 if hasattr(e, 'response') and e.response is not None:
                     st.code(f"Status: {e.response.status_code}\nResponse: {e.response.text[:500]}")
@@ -188,6 +192,7 @@ def process_agent_interaction():
         # Add debug UI in sidebar
         with st.sidebar:
             with st.expander("Raw Agent Response", expanded=True):
+                    
                 st.write("**Raw response from agent (will be added to messages):**")
                 st.code(assistant_response_text)
                 st.write("**Preview how it should render:**")
@@ -218,9 +223,12 @@ def ensure_agent_session(session_id, user_id, headers):
             logger.info(f"Session URL: {session_url}")
             session_payload = {"state": {}}
             
+            # Debug info shown in sidebar
+                
             # Add debugging info directly to UI
             with st.sidebar:
                 with st.expander("Debug Info", expanded=False):
+                        
                     st.write("**Session Initialization**")
                     st.code(f"URL: {session_url}\nPayload: {json.dumps(session_payload, indent=2)}")
             
@@ -233,6 +241,7 @@ def ensure_agent_session(session_id, user_id, headers):
             # Update debug info with success
             with st.sidebar:
                 with st.expander("Debug Info", expanded=False):
+                        
                     st.write("**Session Response**")
                     st.code(f"Status: {session_response.status_code}\nBody: {session_response.text[:500]}")
         
@@ -242,6 +251,7 @@ def ensure_agent_session(session_id, user_id, headers):
             # Update debug info with error
             with st.sidebar:
                 with st.expander("Debug Info", expanded=False):
+                        
                     st.write("**Session Error**")
                     st.error(f"Failed to initialize session: {str(e)}")
             
