@@ -264,15 +264,6 @@ This will deploy the agent with a web UI interface to Cloud Run.
 
 ### Database Deployment (Optional)
 
-If you want to deploy the database separately:
-
-```bash
-cd deployment
-python deploy_db.py
-```
-
-This will create a Cloud SQL PostgreSQL instance and initialize it with the necessary schema.
-
 ### Testing the Deployment
 
 You can test your deployed application by visiting the Cloud Run URL provided after deployment completes. The web interface should load and allow you to interact with the shopping assistant.
