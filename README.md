@@ -22,11 +22,10 @@ The key features of the Customer Service Agent include:
 
 ![Customer Service Agent Workflow](customer_service_workflow.png)
 
-The agent is built using a multi-modal architecture, combining text and image inputs to provide a rich and interactive experience. Customers can share images of sports equipment, apparel, or their current gear to receive accurate product recommendations. The agent (displaying the distinctive BetterSale logo) mocks interactions with various tools and services, including a sports product catalog, inventory management, order processing, and appointment scheduling systems for sports-related services. It also utilizes a session management system to maintain context across interactions and personalize the customer experience.
+The agent is built using a multi-modal architecture, combining text and image inputs to provide a rich and interactive experience. Customers can share images of sports equipment, apparel, or their current gear to receive accurate product recommendations. 
 
-It is important to notice that this agent is not integrated to an actual backend and the behavior is based on mocked tools. If you would like to implement this agent with actual backend integration you will need to edit [customer_service/tools.py](./customer_service/tools/tools.py)
+The Agent is integrated with a backened Sqllite database for product inventory, orders, customer info etc. 
 
-Because the tools are mocked you might notice that some requested changes will not be applied. For instance newly added items to cart will not show if later a user asks the agent to list all items.
 
 ### Key Features
 
@@ -60,9 +59,7 @@ Because the tools are mocked you might notice that some requested changes will n
   - The agent interacts with the user using a set of tools.
   - The agent can use multiple tools in a single interaction.
   - The agent can use the tools to get information and to modify the user's transaction state.
-- **Evaluation:**
-  - The agent can be evaluated using a set of test cases.
-  - The evaluation is based on the agent's ability to use the tools and to respond to the user's requests.
+
 
 #### Agent State - Default customer information
 
@@ -154,6 +151,10 @@ The agent has access to the following tools:
       GOOGLE_GENAI_USE_VERTEXAI=0
       GOOGLE_API_KEY=YOUR_GEMINI_API_KEY_HERE
       ```
+
+5. Grant proper IAM roles to the Cloud Run, Cloud Build service accounts.
+
+6. This repo also uses Artifact Registry, so you will need to enable that API.       
 
 ## Running the Application
 
