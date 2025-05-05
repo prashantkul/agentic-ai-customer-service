@@ -91,14 +91,14 @@ The agent has access to the following tools:
 ### Prerequisites
 
 - Python 3.11+
-- Poetry (for dependency management)
-- Google ADK SDK (installed via Poetry)
-- Google Cloud Project (for Vertex AI Gemini integration)
+- Conda (for environment management)
+- Docker (optional, for containerization)
+- Google Cloud Project (optional, for Vertex AI Gemini integration and deployment)
 
 ### Installation
 1.  **Prerequisites:**
 
-    For the Agent Engine deployment steps, you will need
+    For the Google Cloud deployment steps, you will need
     a Google Cloud Project. Once you have created your project,
     [install the Google Cloud SDK](https://cloud.google.com/sdk/docs/install).
     Then run the following command to authenticate with your project:
@@ -111,57 +111,75 @@ The agent has access to the following tools:
     gcloud services enable aiplatform.googleapis.com
     ```
 
-1.  Clone the repository:
+2.  Clone the repository:
 
     ```bash
-    git clone https://github.com/google/adk-samples.git
-    cd agents/customer-service
+    git clone https://github.com/prashantkul/agentic-ai-customer-service.git
+    cd agentic-ai-customer-service
     ```
 
-    For the rest of this tutorial **ensure you remain in the `agents/customer-service` directory**.
-
-2.  Install dependencies using Poetry:
-
-- if you have not installed poetry before then run `pip install poetry` first. the you can create your virtual environment and install all dependencies using:
-
-  ```bash
-  poetry install
-  ```
-
-  To activate the virtual environment run:
-
-  ```bash
-  poetry env activate
-  ```
-
-3.  Set up Google Cloud credentials:
-
-    - Ensure you have a Google Cloud project.
-    - Make sure you have the Vertex AI API enabled in your project.
-    - Set the `GOOGLE_GENAI_USE_VERTEXAI`, `GOOGLE_CLOUD_PROJECT`, and `GOOGLE_CLOUD_LOCATION` environment variables. You can set them in your `.env` file (modify and rename .env_sample file to .env) or directly in your shell. Alternatively you can edit [customer_service/config.py](./customer_service/config.py)
+3.  Create a new conda environment and install dependencies:
 
     ```bash
-    export GOOGLE_CLOUD_PROJECT=YOUR_ROJECT_NAME_HERE
-    export GOOGLE_GENAI_USE_VERTEXAI=1
-    export GOOGLE_CLOUD_LOCATION=us-central1
+    # Create a new conda environment with Python 3.11
+    conda create -n bettersale python=3.11
+    conda activate bettersale
+    
+    # Install uv for faster package installation
+    pip install uv
+    
+    # Use uv to install packages from requirements.txt
+    uv pip install -r requirements.txt
     ```
 
-## Running the Agent
+4.  Set up Google Cloud credentials:
 
-You can run the agent using the ADK commant in your terminal.
-from the root project directory:
+    - Copy the `.env.example` file to `.env`:
+      ```bash
+      cp .env.example .env
+      ```
+    
+    - Edit the `.env` file with your Google Cloud credentials:
+      ```
+      # Choose 1 for Gemini Vertex AI or 0 Gemini Developer API 
+      GOOGLE_GENAI_USE_VERTEXAI=1
+      
+      # Vertex backend config
+      GOOGLE_CLOUD_PROJECT=YOUR_PROJECT_ID_HERE
+      GOOGLE_CLOUD_LOCATION=us-central1
+      ```
+      
+    - If you're using the Gemini Developer API instead of Vertex AI, set:
+      ```
+      GOOGLE_GENAI_USE_VERTEXAI=0
+      GOOGLE_API_KEY=YOUR_GEMINI_API_KEY_HERE
+      ```
 
-1.  Run agent in CLI:
+## Running the Application
 
-    ```bash
-    adk run customer_service
-    ```
+You can run the application in several ways:
 
-2.  Run agent with ADK Web UI:
-    ```bash
-    adk web
-    ```
-    Select the customer_service from the dropdown
+1. **Run the Streamlit web application locally:**
+
+   ```bash
+   streamlit run shopping_agent.py
+   ```
+
+2. **Run the database-enabled Streamlit application:**
+
+   ```bash
+   cd local_tests
+   python streamlit_app_db.py
+   ```
+
+3. **Run with Docker:**
+
+   ```bash
+   docker build -t bettersale-app .
+   docker run -p 8501:8501 bettersale-app
+   ```
+
+   Then visit `http://localhost:8501` in your browser.
 
 ### Example Interaction
 
@@ -200,81 +218,60 @@ Great! I've found some excellent options for you from our BetterSale collection:
 Would you like me to add any of these to your cart?
 ...
 
-## Evaluating the Agent
 
-Evaluation tests assess the overall performance and capabilities of the agent in a holistic manner.
+## Deploying on Google Cloud
 
-**Steps:**
+### Deploying the Streamlit App
 
-1.  **Run Evaluation Tests:**
+To deploy the Streamlit application to Google Cloud Run, follow these steps:
 
-    ```bash
-    pytest eval
-    ```
+1. **Make sure Docker is installed on your system.**
 
-    - This command executes all test files within the `eval` directory.
-
-## Unit Tests
-
-Unit tests focus on testing individual units or components of the code in isolation.
-
-**Steps:**
-
-1.  **Run Unit Tests:**
+2. **Run the deployment script which builds and deploys to Cloud Run:**
 
     ```bash
-    pytest tests/unit
+    ./deploy_to_cloud_run.sh
     ```
 
-    - This command executes all test files within the `tests/unit` directory.
+    This script will:
+    - Build the Docker image
+    - Push it to Google Container Registry
+    - Deploy the application to Cloud Run
+    - Set up necessary permissions
 
-## Configuration
+3. **Access your deployed application**
 
-You can find further configuration parameters in [customer_service/config.py](./customer_service/config.py). This incudes parameters such as agent name, app name and llm model used by the agent.
+    After deployment completes, you will get a URL where your application is hosted. The application will be publicly accessible at this URL.
 
-## Deployment on Google Agent Engine
+### Deploying the Agent
 
-In order to inherit all dependencies of your agent you can build the wheel file of the agent and run the deployment.
+To deploy the agent to Google Cloud Run, use the ADK deploy command:
 
-1.  **Build Customer Service Agent WHL file**
+```bash
+# Set your environment variables
+export GOOGLE_CLOUD_PROJECT=your-project-id
+export GOOGLE_CLOUD_LOCATION=us-central1
+export SERVICE_NAME=bettersale-agent
+export APP_NAME=bettersale
+export AGENT_PATH=customer_service
 
-    ```bash
-    poetry build --format=wheel --output=deployment
-    ```
-
-1.  **Deploy the agent to agents engine**
-    It is importand to run deploy.py from withing deployment folder so paths are correct
-
-    ```bash
-    cd deployment
-    python deploy.py
-    ```
-
-### Testing deployment
-
-This code snippet is an example of how to test the deployed agent.
-
+# Deploy the agent
+adk deploy cloud_run --project=$GOOGLE_CLOUD_PROJECT --region=$GOOGLE_CLOUD_LOCATION --service_name=$SERVICE_NAME --app_name=$APP_NAME --with_ui $AGENT_PATH
 ```
-import vertexai
-from customer_service.config import Config
-from vertexai.preview.reasoning_engines import AdkApp
 
+This will deploy the agent with a web UI interface to Cloud Run.
 
-configs = Config()
+### Database Deployment (Optional)
 
-vertexai.init(
-    project="<GOOGLE_CLOUD_LOCATION_PROJECT_ID>",
-    location="<GOOGLE_CLOUD_LOCATION>"
-)
+If you want to deploy the database separately:
 
-# get the agent based on resource id
-agent_engine = vertexai.agent_engines.get('DEPLOYMENT_RESOURSE_NAME') # looks like this projects/PROJECT_ID/locations/LOCATION/reasoningEngines/REASONING_ENGINE_ID
-
-for event in remote_agent.stream_query(
-    user_id=USER_ID,
-    session_id=session["id"],
-    message="Hello!",
-):
-    print(event)
-
+```bash
+cd deployment
+python deploy_db.py
 ```
+
+This will create a Cloud SQL PostgreSQL instance and initialize it with the necessary schema.
+
+### Testing the Deployment
+
+You can test your deployed application by visiting the Cloud Run URL provided after deployment completes. The web interface should load and allow you to interact with the shopping assistant.
